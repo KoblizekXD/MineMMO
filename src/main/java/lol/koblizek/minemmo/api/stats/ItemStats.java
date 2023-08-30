@@ -19,7 +19,16 @@ public abstract class ItemStats<E extends Entity> {
      */
     public abstract Modifier modifies(E entity);
     public String name() { return ""; }
+
+    /**
+     * @return the color of the name of the stat
+     */
     public TextColor color() { return NamedTextColor.GRAY; }
+
+    /**
+     * @param value value used as multiplier
+     * @return color of the value along with the modifier character
+     */
     public TextColor coloredValue(double value) { return NamedTextColor.DARK_BLUE; }
 
     public final Component toComponent(double value, E entity) {
