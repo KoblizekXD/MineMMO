@@ -1,5 +1,6 @@
 package lol.koblizek.minemmo.api.stats;
 
+import lol.koblizek.minemmo.util.Config;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -25,10 +26,10 @@ public abstract class ItemStats<E extends Entity> {
         String name;
         if (this.getClass().isAnnotationPresent(StatsInfo.class)) {
             StatsInfo info = this.getClass().getAnnotation(StatsInfo.class);
-            if (info.name().isEmpty()) name = "Unknown Stat";
+            if (info.name().isEmpty()) name = Config.getString("stats.no_one");
             else name = info.name();
         } else {
-            if (name().isEmpty()) name = "Unknown Stat";
+            if (name().isEmpty()) name = Config.getString("stats.no_one");
             else name = name();
         }
         return Component.text(name + ":")

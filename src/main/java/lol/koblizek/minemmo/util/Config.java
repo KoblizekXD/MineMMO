@@ -13,6 +13,7 @@ public final class Config {
         configuration = MineMMO.getInstance().getConfig();
         // Savable data
         configuration.addDefault("rarity.no_name", "[Rarity Unspecified]");
+        configuration.addDefault("stats.no_name", "Unknown stat");
         configuration.options().copyDefaults(true);
         MineMMO.getInstance().saveConfig();
     }
