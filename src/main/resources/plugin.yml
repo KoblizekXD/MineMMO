@@ -1,0 +1,9 @@
+name: MineMMO
+version: '${version}'
+main: lol.koblizek.minemmo.MineMMO
+api-version: '1.20'
+load: STARTUP
+commands:
+  testrarity:
+    usage: /testrarity
+    description: Quick way to test if rarity is displayed correctly
