@@ -14,6 +14,8 @@ public class Serializer {
     public static String toBase64(Rarity rarity) {
         return Base64.getEncoder().encodeToString(toBytes(rarity));
     }
+
+    @Deprecated
     public static byte[] toBytes(Rarity rarity) {
         var baos = new ByteArrayOutputStream();
         try (var oos = new BukkitObjectOutputStream(baos)) {
@@ -23,6 +25,7 @@ public class Serializer {
         }
         return baos.toByteArray();
     }
+    @Deprecated
     public static Rarity fromBytes(byte[] bytes) {
         var bais = new ByteArrayInputStream(bytes);
         try (var ois = new BukkitObjectInputStream(bais)) {

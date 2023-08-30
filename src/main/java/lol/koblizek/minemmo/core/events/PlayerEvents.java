@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -23,5 +24,9 @@ public class PlayerEvents extends EventUtils implements Listener {
                 if (itemRarity.onEntityDamage(event)) event.setCancelled(true);
             }
         }
+    }
+    @EventHandler
+    public void onInventoryChange(InventoryMoveItemEvent event) {
+
     }
 }
