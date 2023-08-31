@@ -2,6 +2,7 @@ package lol.koblizek.minemmo.core.events;
 
 import lol.koblizek.minemmo.api.rarity.Rarity;
 import lol.koblizek.minemmo.core.item.ItemModifier;
+import lol.koblizek.minemmo.core.registry.Registries;
 import lol.koblizek.minemmo.util.EventUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,8 +19,8 @@ public class PlayerEvents extends EventUtils implements Listener {
             ItemStack mainHand = player.getInventory().getItemInMainHand();
             var pdc = dataContainer(mainHand);
             if (pdc.has("item_rarity")) {
-                int id = pdc.get("item_rarity", PersistentDataType.INTEGER);
-                Rarity itemRarity = ItemModifier.UNIQUE_IDS.get(id);
+                String id = pdc.get("item_rarity", PersistentDataType.STRING);
+                Rarity itemRarity = Registries.RARITIES.get(id);
                 event.setDamage(event.getDamage() * itemRarity.damageModifier());
                 if (itemRarity.onEntityDamage(event)) event.setCancelled(true);
             }

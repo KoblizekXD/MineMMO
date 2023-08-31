@@ -1,9 +1,7 @@
 package lol.koblizek.minemmo.core.commands;
 
-import lol.koblizek.minemmo.api.rarity.Rarity;
 import lol.koblizek.minemmo.core.item.ItemModifier;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
+import lol.koblizek.minemmo.core.registry.Registries;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,10 +14,7 @@ public class TestRarityCommand implements CommandExecutor {
         if (sender instanceof Player player) {
             var item = player.getInventory().getItemInMainHand();
             ItemModifier.create(item)
-                    .rarity(Rarity.builder()
-                            .name("NIGGER")
-                            .decorated(TextDecoration.BOLD)
-                            .textColor(NamedTextColor.AQUA).build());
+                    .rarity(Registries.RARITIES.get("testrarity"));
         }
         return true;
     }

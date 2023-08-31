@@ -15,13 +15,21 @@ public abstract class Registry<T> {
         data.put(key, object);
         return key;
     }
-    private T get(String key) {
+    public T get(String key) {
         AtomicReference<T> toReturn = new AtomicReference<>(null);
         data.forEach((reg, obj) -> {
             if (reg.getKey().equals(key))
                 toReturn.set(obj);
         });
         return toReturn.get();
+    }
+    public String findIdentifier(T object) {
+        AtomicReference<String> ret = new AtomicReference<>(null);
+        data.forEach((reg, obj) -> {
+            if (obj.equals(object))
+                ret.set(reg.getKey());
+        });
+        return ret.get();
     }
     private T get(RegistryKey<T> key) {
         return data.get(key);

@@ -1,6 +1,7 @@
 package lol.koblizek.minemmo.core.item;
 
 import lol.koblizek.minemmo.api.rarity.Rarity;
+import lol.koblizek.minemmo.core.registry.Registries;
 import lol.koblizek.minemmo.util.EventUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -8,10 +9,12 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class ItemModifier extends EventUtils {
-    public static final Map<Integer, Rarity> UNIQUE_IDS = new HashMap<>();
     private final ItemStack stack;
 
     private ItemModifier(ItemStack stack) {
@@ -23,8 +26,7 @@ public final class ItemModifier extends EventUtils {
     }
     public ItemModifier rarity(Rarity rarity) {
         dataContainer(stack)
-                .add("item_rarity", PersistentDataType.INTEGER, uniqueId());
-        UNIQUE_IDS.put(uniqueId(), rarity);
+                .add("item_rarity", PersistentDataType.STRING, Registries.RARITIES.findIdentifier(rarity));
         var meta = stack.getItemMeta();
         if (rarity.asComponent() != null) {
             if (meta.hasLore()) {
@@ -65,8 +67,5 @@ public final class ItemModifier extends EventUtils {
         }
         stack.setItemMeta(meta);
         return this;
-    }
-    private static Integer uniqueId() {
-        return UNIQUE_IDS.size();
     }
 }
