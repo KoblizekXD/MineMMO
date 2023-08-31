@@ -11,7 +11,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
 
 public final class ItemModifier extends EventUtils {
-    public static final Map<Integer, Rarity> RARITIES = new HashMap<>();
+    public static final Map<Integer, Rarity> UNIQUE_IDS = new HashMap<>();
     private final ItemStack stack;
 
     private ItemModifier(ItemStack stack) {
@@ -24,7 +24,7 @@ public final class ItemModifier extends EventUtils {
     public ItemModifier rarity(Rarity rarity) {
         dataContainer(stack)
                 .add("item_rarity", PersistentDataType.INTEGER, uniqueId());
-        RARITIES.put(uniqueId(), rarity);
+        UNIQUE_IDS.put(uniqueId(), rarity);
         var meta = stack.getItemMeta();
         if (rarity.asComponent() != null) {
             if (meta.hasLore()) {
@@ -44,8 +44,8 @@ public final class ItemModifier extends EventUtils {
                 decoration = MiniMessage.miniMessage().deserialize("<obf>K</obf>")
                         .appendSpace()
                         .append(Component.text(rarity.getName()).color(rarity.getColor())
-                        .appendSpace()
-                        .append(MiniMessage.miniMessage().deserialize("<obf>K</obf>")))
+                                .appendSpace()
+                                .append(MiniMessage.miniMessage().deserialize("<obf>K</obf>")))
                         .decoration(TextDecoration.ITALIC, false)
                         .decorate(list.toArray(TextDecoration[]::new));
             } else {
@@ -67,6 +67,6 @@ public final class ItemModifier extends EventUtils {
         return this;
     }
     private static Integer uniqueId() {
-        return RARITIES.size();
+        return UNIQUE_IDS.size();
     }
 }

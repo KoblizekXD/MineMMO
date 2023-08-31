@@ -19,7 +19,7 @@ public class PlayerEvents extends EventUtils implements Listener {
             var pdc = dataContainer(mainHand);
             if (pdc.has("item_rarity")) {
                 int id = pdc.get("item_rarity", PersistentDataType.INTEGER);
-                Rarity itemRarity = ItemModifier.RARITIES.get(id);
+                Rarity itemRarity = ItemModifier.UNIQUE_IDS.get(id);
                 event.setDamage(event.getDamage() * itemRarity.damageModifier());
                 if (itemRarity.onEntityDamage(event)) event.setCancelled(true);
             }
