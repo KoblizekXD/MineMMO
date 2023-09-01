@@ -1,6 +1,7 @@
 package lol.koblizek.minemmo.api.stats;
 
 import lol.koblizek.minemmo.util.Config;
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -52,6 +53,7 @@ public abstract class ItemStats<E extends Entity> {
         else return '+';
     }
 
+    @Getter
     public static class Modifier {
         private Attribute attribute;
         private AttributeModifier modifier;
@@ -66,14 +68,6 @@ public abstract class ItemStats<E extends Entity> {
         public Modifier add(String name, double amount) {
             modifier = new AttributeModifier(name, amount, AttributeModifier.Operation.ADD_NUMBER);
             return this;
-        }
-
-        public Attribute getAttribute() {
-            return attribute;
-        }
-
-        public AttributeModifier getModifier() {
-            return modifier;
         }
 
         public static Modifier forAttribute(Attribute attribute) {
