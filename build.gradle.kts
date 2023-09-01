@@ -15,6 +15,9 @@ repositories {
         url = uri("https://repo.papermc.io/repository/maven-public/")
     }
     maven {
+        url = uri("https://hub.jeff-media.com/nexus/repository/jeff-media-public/")
+    }
+    maven {
         name = "sonatype"
         url = uri("https://oss.sonatype.org/content/groups/public/")
     }
@@ -29,6 +32,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.28")
     annotationProcessor("org.projectlombok:lombok:1.18.28")
     implementation("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
+    implementation("com.jeff_media:MorePersistentDataTypes:2.4.0")
 }
 
 val targetJavaVersion = 17

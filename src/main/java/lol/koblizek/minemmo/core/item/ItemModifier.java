@@ -1,18 +1,20 @@
 package lol.koblizek.minemmo.core.item;
 
+import com.jeff_media.morepersistentdatatypes.DataType;
 import lol.koblizek.minemmo.api.rarity.Rarity;
+import lol.koblizek.minemmo.api.stats.ItemStats;
 import lol.koblizek.minemmo.core.registry.Registries;
 import lol.koblizek.minemmo.util.EventUtils;
+import lol.koblizek.minemmo.util.Pair;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import javax.xml.crypto.Data;
+import java.util.*;
 
 public final class ItemModifier extends EventUtils {
     private final ItemStack stack;
@@ -66,6 +68,21 @@ public final class ItemModifier extends EventUtils {
             }
         }
         stack.setItemMeta(meta);
+        return this;
+    }
+    public <E extends Entity> ItemModifier itemStats(E entity, Pair<ItemStats<E>, Double>... values) {
+        var data = dataContainer(stack);
+        var lore = stack.lore();
+        if (lore == null) lore = new ArrayList<>();
+
+        Map<String, Double> addedData = new HashMap<>();
+        List<Component> addedLore = new ArrayList<>();
+        for (Pair<ItemStats<E>, Double> itemStat : values) {
+            addedLore.add(itemStat.getK().toComponent(itemStat.getV(), entity));
+        }
+        lore.addAll(0, addedLore);
+        data.add("item_stats", DataType.asMap(DataType.STRING, DataType.DOUBLE), addedData);
+        stack.lore(lore);
         return this;
     }
 }
